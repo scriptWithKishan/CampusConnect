@@ -8,7 +8,7 @@ const protectedRoutes = require("../middleware/protected-routes");
 const upload = require("../middleware/multer");
 const cloudinary = require("../utils/cloudinary");
 
-PostRouter.get("/", protectedRoutes, async (req, res) => {
+PostRouter.get("/", async (req, res) => {
   try {
     const data = await Post.find()
       .populate("author", "username profilePic")
@@ -94,7 +94,7 @@ PostRouter.get("/user", protectedRoutes, async (req, res) => {
   }
 });
 
-PostRouter.get("/:id", protectedRoutes, async (req, res) => {
+PostRouter.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -153,6 +153,47 @@ PostRouter.patch("/like/:id", protectedRoutes, async (req, res) => {
     return res.status(200).json({
       status: "success",
       message: `Post is ${isLiked ? "disliked" : "liked"} successfully`,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: "failure",
+      message: "Internal server error",
+      error: err.message,
+    });
+  }
+});
+
+PostRouter.patch("/comment/:id", protectedRoutes, async (req, res) => {
+  try {
+    const { userId } = req;
+    const { text } = req.body;
+    const { id } = req.params;
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({
+        status: "failure",
+        message: "Post not found",
+      });
+    }
+
+    await Post.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          comments: {
+            user: userId,
+            text,
+          },
+        },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      status: "success",
+      message: "comment added successfully",
     });
   } catch (err) {
     return res.status(500).json({

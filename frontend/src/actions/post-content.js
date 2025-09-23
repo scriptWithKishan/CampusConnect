@@ -20,3 +20,23 @@ export const postContent = async (formData) => {
     throw err;
   }
 };
+
+export const postComment = async (formData, postId) => {
+  try {
+    const jwtToken = Cookies.get("jwt_token");
+
+    const response = await fetch(`${apiURL}/post/comment/${postId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+};

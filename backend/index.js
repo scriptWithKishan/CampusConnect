@@ -23,10 +23,12 @@ mongoose
 const AuthRouter = require("./controllers/auth-router");
 const UserRouter = require("./controllers/user-router");
 const PostRouter = require("./controllers/post-router");
+const ActivityRouter = require("./controllers/activity-router");
 
 app.use("/auth", AuthRouter);
 app.use("/user", UserRouter);
 app.use("/post", PostRouter);
+app.use("/activity", ActivityRouter);
 
 app.use((req, res) => {
   res.status(404).json({ status: "failure", message: "Route not found" });

@@ -22,7 +22,6 @@ const ProtectedLayout = () => {
   } else {
     return (
       <div>
-        <Outlet />
         <AlertDialog defaultOpen={true}>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -41,6 +40,9 @@ const ProtectedLayout = () => {
               </Button>
               <Button onClick={() => navigate("/sign-up")} variant="elevated">
                 Signup
+              </Button>
+              <Button onClick={() => navigate("/")} variant="elevated">
+                Explore
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

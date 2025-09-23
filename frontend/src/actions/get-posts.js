@@ -40,12 +40,8 @@ export const getUserPosts = async () => {
 
 export const getPostData = async (postId) => {
   try {
-    const jwtToken = Cookies.get("jwt_token");
     const response = await fetch(`${apiURL}/post/${postId}`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
     });
 
     const data = await response.json();

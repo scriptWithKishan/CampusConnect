@@ -26,3 +26,22 @@ export const getUserData = async () => {
     throw err;
   }
 };
+
+export const getUserName = async (user) => {
+  try {
+    const jwtToken = Cookies.get("jwt_token");
+
+    const response = await fetch(`${apiURL}/user/${user}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+
+    const data = await response.json();
+
+    return data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

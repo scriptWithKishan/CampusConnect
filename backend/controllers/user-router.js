@@ -31,4 +31,31 @@ UserRouter.get("/profile", protectedRoutes, async (req, res) => {
   }
 });
 
+UserRouter.get("/:id", protectedRoutes, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await User.findById(id).populate("username profilePic");
+
+    if (!data) {
+      return res.status(404).json({
+        status: "failure",
+        message: "No user found",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "User fetched successfully",
+      data,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: "failure",
+      message: "Internal server error",
+      error: err.message,
+    });
+  }
+});
+
 module.exports = UserRouter;

@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { HomeSkeleton } from "../Skeletons/home-skeleton";
 import { ImageOff } from "lucide-react";
-import { EachPost } from "./each-post";
+import { EachPost } from "../each-post";
 
 const HomePage = () => {
   const { user } = useContext(UserContext);
@@ -17,7 +17,6 @@ const HomePage = () => {
 
   const getPosts = async () => {
     const posts = await getAllPosts();
-    console.log("get all posts");
     setPosts(posts);
     setLoading(false);
   };
@@ -79,7 +78,7 @@ const HomePage = () => {
     );
   };
 
-  if (loading && !user) {
+  if (loading) {
     return loadingView();
   } else {
     if (posts.length === 0) {

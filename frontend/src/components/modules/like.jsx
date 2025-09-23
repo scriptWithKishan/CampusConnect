@@ -27,11 +27,13 @@ export const Like = ({ postId }) => {
   };
 
   useEffect(() => {
-    fetchLikeData();
+    if (user) {
+      fetchLikeData();
+    }
   }, []);
 
   return (
-    <Button onClick={onClick} size="icon" variant={"elevated"}>
+    <Button onClick={onClick} disabled={!user} size="icon" variant={"elevated"}>
       <Heart
         className={
           isLiked

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router";
+import Cookies from "js-cookie";
 
 import UserContext from "@/context/user-context";
 import { getUserData } from "@/actions/get-users";
@@ -10,10 +11,14 @@ const AppLayout = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const jwtToken = Cookies.get("jwt_token");
+
   useEffect(() => {
     const fetchUser = async () => {
-      const data = await getUserData();
-      setUser(data);
+      if (jwtToken) {
+        const data = await getUserData();
+        setUser(data);
+      }
       setLoading(false);
     };
     fetchUser();
