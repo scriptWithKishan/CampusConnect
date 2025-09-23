@@ -62,7 +62,12 @@ export const Comment = ({ commentsData, postId }) => {
                       </FormItem>
                     )}
                   />
-                  <Button size="icon" variant="elevated">
+                  <Button
+                    size="icon"
+                    type="submit"
+                    disabled={form.formState.isSubmitting}
+                    variant="elevated"
+                  >
                     <SendHorizonalIcon
                       className="fill-cyan-400"
                       color="fill-cyan-400"
