@@ -1,8 +1,10 @@
 import Cookies from "js-cookie";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 export const login = async (credentials) => {
   try {
-    const response = await fetch(`http://localhost:4000/auth/login`, {
+    const response = await fetch(`${apiURL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

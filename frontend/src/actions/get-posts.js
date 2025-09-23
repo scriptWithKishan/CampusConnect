@@ -1,10 +1,11 @@
 import Cookies from "js-cookie";
 
-const jwtToken = Cookies.get("jwt_token");
+const apiURL = import.meta.env.VITE_API_URL;
 
 export const getAllPosts = async () => {
   try {
-    const response = await fetch("http://localhost:4000/post", {
+    const jwtToken = Cookies.get("jwt_token");
+    const response = await fetch(`${apiURL}/post`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -22,7 +23,8 @@ export const getAllPosts = async () => {
 
 export const getUserPosts = async () => {
   try {
-    const response = await fetch(`http://localhost:4000/post/user`, {
+    const jwtToken = Cookies.get("jwt_token");
+    const response = await fetch(`${apiURL}/post/user`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -38,7 +40,8 @@ export const getUserPosts = async () => {
 
 export const getPostData = async (postId) => {
   try {
-    const response = await fetch(`http://localhost:4000/post/${postId}`, {
+    const jwtToken = Cookies.get("jwt_token");
+    const response = await fetch(`${apiURL}/post/${postId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
