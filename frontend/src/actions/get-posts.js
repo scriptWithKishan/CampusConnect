@@ -1,10 +1,12 @@
 import Cookies from "js-cookie";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const jwtToken = Cookies.get("jwt_token");
 
 export const getAllPosts = async () => {
   try {
-    const response = await fetch("http://localhost:4000/post", {
+    const response = await fetch(`${apiURL}/post`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,

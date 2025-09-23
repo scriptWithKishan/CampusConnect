@@ -1,10 +1,12 @@
 import Cookies from "js-cookie";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const jwtToken = Cookies.get("jwt_token");
 
 export const toggleLike = async (postId) => {
   try {
-    await fetch(`http://localhost:4000/post/like/${postId}`, {
+    await fetch(`${apiURL}/post/like/${postId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${jwtToken}`,

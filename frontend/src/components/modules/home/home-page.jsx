@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
+import UserContext from "@/context/user-context";
 import { getAllPosts } from "@/actions/get-posts";
 
 import { Separator } from "@/components/ui/separator";
@@ -9,13 +10,20 @@ import { ImageOff } from "lucide-react";
 import { EachPost } from "./each-post";
 
 const HomePage = () => {
+  const { user } = useContext(UserContext);
+
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useState(async () => {
+  const getPosts = async () => {
     const posts = await getAllPosts();
+    console.log("get all posts");
     setPosts(posts);
     setLoading(false);
+  };
+
+  useEffect(() => {
+    getPosts();
   }, []);
 
   const loadingView = () => <HomeSkeleton />;
@@ -71,7 +79,7 @@ const HomePage = () => {
     );
   };
 
-  if (loading) {
+  if (loading && !user) {
     return loadingView();
   } else {
     if (posts.length === 0) {
