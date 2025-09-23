@@ -34,7 +34,13 @@ AuthRouter.post("/login", async (req, res) => {
           status: "success",
           message: "Login Successful",
           token: token,
-          userId: user._id,
+          data: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            bio: user.bio,
+            profilePic: user.profilePic,
+          },
         });
       }
     }

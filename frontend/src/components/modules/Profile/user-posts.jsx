@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getUserPosts } from "@/actions/get-posts";
 
-import { EachPost } from "../home/each-post";
+import { EachPost } from "../each-post";
 import { ProfilePostSkeleton } from "../Skeletons/profile-post-skeleton";
 import { ImageOff } from "lucide-react";
 

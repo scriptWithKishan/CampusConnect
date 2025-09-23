@@ -89,6 +89,7 @@ const SigninPage = () => {
               type="submit"
               variant="elevated"
               className="self-end hover:bg-cyan-400"
+              disabled={form.formState.isSubmitting}
             >
               Login
             </Button>

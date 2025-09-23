@@ -1,11 +1,13 @@
 import { useContext } from "react";
-import { MessageCircle, UserPlus } from "lucide-react";
+
+import { UserPlus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+import { Like } from "./like";
+import { Comment } from "./comment";
 
 import UserContext from "@/context/user-context";
-
-import { Button } from "@/components/ui/button";
-import { Like } from "../like";
-import { ProfilePostSkeleton } from "../Skeletons/profile-post-skeleton";
+import { ProfilePostSkeleton } from "./Skeletons/profile-post-skeleton";
 
 export const EachPost = ({ details }) => {
   const { user, loading } = useContext(UserContext);
@@ -35,15 +37,13 @@ export const EachPost = ({ details }) => {
             </div>
           </div>
           <div>
-            {details.author._id !== user._id && (
+            {user && details.author._id !== user._id && (
               <Button size="icon" variant={"elevated"}>
                 <UserPlus />
               </Button>
             )}
             <Like postId={details._id} />
-            <Button size="icon" variant={"elevated"}>
-              <MessageCircle />
-            </Button>
+            <Comment postId={details._id} commentsData={details.comments} />
           </div>
         </div>
         <div className="order-3 lg:order-2 ">
