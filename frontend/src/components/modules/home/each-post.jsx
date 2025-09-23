@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MessageCircle, UserPlus } from "lucide-react";
 
 import UserContext from "@/context/user-context";
@@ -6,9 +6,12 @@ import UserContext from "@/context/user-context";
 import { Button } from "@/components/ui/button";
 import { Like } from "../like";
 import { ProfilePostSkeleton } from "../Skeletons/profile-post-skeleton";
+import CommentsSection from "../comments/comments-section";
+import PostActions from "../post-management/post-actions";
 
-export const EachPost = ({ details }) => {
+export const EachPost = ({ details, onPostUpdate, onPostDelete }) => {
   const { user, loading } = useContext(UserContext);
+  const [showComments, setShowComments] = useState(false);
 
   const successView = () => {
     return (
@@ -34,16 +37,26 @@ export const EachPost = ({ details }) => {
               </p>
             </div>
           </div>
-          <div>
+          <div className="flex items-center gap-1">
             {details.author._id !== user._id && (
               <Button size="icon" variant={"elevated"}>
                 <UserPlus />
               </Button>
             )}
             <Like postId={details._id} />
-            <Button size="icon" variant={"elevated"}>
+            <Button 
+              size="icon" 
+              variant={"elevated"}
+              onClick={() => setShowComments(!showComments)}
+            >
               <MessageCircle />
             </Button>
+            <PostActions 
+              post={details} 
+              currentUserId={user._id}
+              onPostUpdate={onPostUpdate}
+              onPostDelete={onPostDelete}
+            />
           </div>
         </div>
         <div className="order-3 lg:order-2 ">
@@ -55,6 +68,24 @@ export const EachPost = ({ details }) => {
             src={details.image}
             alt={details.header}
           />
+        )}
+        
+        {/* Comments Section */}
+        {showComments && (
+          <div className="order-4 border-t pt-4">
+            <CommentsSection 
+              post={details} 
+              currentUserId={user._id}
+              onCommentUpdate={onPostUpdate}
+            />
+          </div>
+        )}
+        
+        {/* Comments Count */}
+        {details.comments && details.comments.length > 0 && (
+          <div className="order-5 text-xs text-muted-foreground">
+            {details.comments.length} comment{details.comments.length !== 1 ? 's' : ''}
+          </div>
         )}
       </li>
     );
