@@ -3,9 +3,8 @@ import Cookies from "js-cookie";
 const apiURL = import.meta.env.VITE_API_URL;
 
 export const getUserData = async () => {
-  const jwtToken = Cookies.get("jwt_token");
-
   try {
+    const jwtToken = Cookies.get("jwt_token");
     const response = await fetch(`${apiURL}/user/profile`, {
       method: "GET",
       headers: {
