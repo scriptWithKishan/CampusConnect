@@ -40,7 +40,7 @@ export const Comment = ({ commentsData, postId }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="icon" disabled={!user} variant={"elevated"}>
+        <Button size="icon" disabled={!user} variant={"elevated"} className="bg-transparent">
           <MessageCircle />
         </Button>
       </DialogTrigger>

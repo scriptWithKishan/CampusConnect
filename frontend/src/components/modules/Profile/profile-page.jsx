@@ -6,6 +6,7 @@ import UserContext from "@/context/user-context";
 import { UserPosts } from "./user-posts";
 import { ProfileSkeleton } from "../Skeletons/profile-skeleton";
 import { PostForm } from "./post-form";
+import { FollowDetails } from "./follow-details";
 
 const ProfilePage = () => {
   const { user, loading } = useContext(UserContext);
@@ -37,14 +38,17 @@ const ProfilePage = () => {
               alt={user.username}
             />
           </div>
-          <div>
-            <h1 className="text-2xl lg:text-4xl font-semibold">
-              {user.username}
-            </h1>
-            <p className="text-sm lg:text-base">{user.email}</p>
-            <p className="text-sm lg:text-base">
-              {user.bio ? user.bio : "No Bio."}
-            </p>
+          <div className="space-y-4">
+            <FollowDetails />
+            <div className="flex flex-col gap-y-2">
+              <h1 className="text-2xl lg:text-4xl font-semibold">
+                {user.username}
+              </h1>
+              <p className="text-sm lg:text-base">{user.email}</p>
+              <p className="text-sm lg:text-base">
+                {user.bio ? user.bio : "No Bio."}
+              </p>
+            </div>
           </div>
         </div>
         <Separator

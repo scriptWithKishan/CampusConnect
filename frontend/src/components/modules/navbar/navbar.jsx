@@ -27,7 +27,7 @@ const NavbarItem = ({ children, path, isActive }) => {
 const navbarItems = [
   { name: "Home", path: "/" },
   { name: "Profile", path: "/profile" },
-  { name: "Post", path: "/post" },
+  { name: "Explore", path: "/explore" },
   { name: "Settings", path: "/settings" },
 ];
 

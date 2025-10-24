@@ -45,3 +45,39 @@ export const getUserName = async (user) => {
     console.log(err);
   }
 };
+
+export const getFollowDetails = async () => {
+  try {
+    const jwtToken = Cookies.get("jwt_token")
+    const response = await fetch(`${apiURL}/user/follow-details`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`
+      }
+    })
+
+    const data = await response.json()
+
+    return data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getSearchedUsers = async (query) => {
+  try {
+    const jwtToken = Cookies.get("jwt_token")
+
+    const response = await fetch(`${apiURL}/user/search?search=${query}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`
+      }
+    })
+
+    const data = await response.json()
+    return data.data
+  } catch (err) {
+    console.log(err.message)
+  }
+}

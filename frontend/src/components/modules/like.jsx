@@ -9,6 +9,7 @@ import { Heart } from "lucide-react";
 
 export const Like = ({ postId }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0)
   const { user } = useContext(UserContext);
 
   const onClick = async () => {
@@ -18,6 +19,8 @@ export const Like = ({ postId }) => {
 
   const fetchLikeData = async () => {
     const data = await getPostData(postId);
+
+    setLikeCount(data.likes.length)
 
     if (data.likes.includes(user._id)) {
       setIsLiked(true);
@@ -33,14 +36,17 @@ export const Like = ({ postId }) => {
   }, []);
 
   return (
-    <Button onClick={onClick} disabled={!user} size="icon" variant={"elevated"}>
-      <Heart
-        className={
-          isLiked
+    <div className="flex items-center gap-x-2">
+      <Button onClick={onClick} disabled={!user} size="icon" variant={"elevated"} className="bg-transparent">
+        <Heart
+          className={
+            isLiked
             ? "fill-cyan-400 text-cyan-400"
             : "fill-transparent text-black"
-        }
-      />
-    </Button>
+          }
+          />
+      </Button>
+      <p className="text-xs text-gray-500" >{likeCount}</p>
+    </div>
   );
 };
